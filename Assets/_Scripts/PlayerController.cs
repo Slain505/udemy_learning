@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce; // Create jump variable 
     public Rigidbody2D _rb; // Create variable RB 2D
     private bool isGrounded; // Create variable which checks if Player on ground
-
+    public Transform groundCheckPoint;
+    public LayerMask layerMask;
+    private bool doubleJump; // Double Jump check
 
     // Start is called before the first frame update
     void Start()
@@ -20,15 +22,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), _rb.velocity.y);
+        
+        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, layerMask);
 
-        isGrounded = Physics2D.OverlapCircle()
+        if(isGrounded){
+            doubleJump = true;
+        }
+        
         if (Input.GetButtonDown("Jump")) {
             
             if (isGrounded){
 
-            
             _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+            
             }
-        }
+            
+            else{
+
+                if(doubleJump){
+                
+                _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+
+                doubleJump = false;
+
+                }
+            }
+        }   
     }
 }
