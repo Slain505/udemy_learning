@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("moveSpeed", Mathf.Abs(_rb.velocity.x));
         anim.SetBool("isFalling", isFalling);
+        // anim.SetBool("doubleJump", doubleJump);
 
     }
 }
