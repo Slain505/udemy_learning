@@ -324,7 +324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342578952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.31, y: -2.07, z: 0}
+  m_LocalPosition: {x: -3.4, y: -2.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -498,7 +498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76, y: -1.41, z: -10}
+  m_LocalPosition: {x: -0.79, y: -0.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -518,6 +518,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainPoint: {fileID: 342578956}
+  farBG: {fileID: 270509996}
+  midBG: {fileID: 99542106}
+  minHeight: -1.8
+  maxHeight: 2.2
 --- !u!850595691 &525450734
 LightingSettings:
   m_ObjectHideFlags: 0
