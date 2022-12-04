@@ -100,5 +100,5 @@ MonoBehaviour:
   mainPoint: {fileID: 0}
   farBG: {fileID: 0}
   midBG: {fileID: 0}
-  minHeight: 0
-  maxHeight: 0
+  minHeight: -2.09
+  maxHeight: 3.53

@@ -14,72 +14,98 @@ public class PlayerController : MonoBehaviour
     private bool doubleJump; // Double Jump check
     private Animator anim; // Animator
     private SpriteRenderer spriteRR;
+    [SerializeField] private float knockBackCount, knockBackDuration, knockBackForce;
+    [SerializeField] public PlayerController pc;
 
-
-
+    private void Awake() 
+    {
+        pc = this;
+    }
 
     // Start is called before the first frame update
     void Start()
-    {
+        {
         anim = GetComponent<Animator>();
         spriteRR = GetComponent<SpriteRenderer>();
-    }
+        }
     
   
-    // Update is called once per frame
-    void Update()
-    {
-        _rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), _rb.velocity.y);
+        // Update is called once per frame
+        void Update()
+        {
+            if(knockBackCount <= 0)
+            {
+                _rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), _rb.velocity.y);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, layerMask);
+                isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, layerMask);
         
-        // public bool isFalling()    // Falling check
-        // {
-        // if(_rb.velocity.y < 0 && !isGrounded){
-        //         return true;
-        //     }
-        // }     
-        isFalling = false;
+                // public bool isFalling()    // Falling check
+                // {
+                // if(_rb.velocity.y < 0 && !isGrounded){
+                //         return true;
+                //     }
+                // }     
+                isFalling = false;
 
-        if(_rb.velocity.y < 0 && !isGrounded){
-            isFalling = true;
-        }
+                if(_rb.velocity.y < 0 && !isGrounded)
+                {
+                    isFalling = true;
+                }
         
-        // Player rotation
-        if(_rb.velocity.x < 0){
-            spriteRR.flipX = true;
-        } else if(_rb.velocity.x > 0){
-            spriteRR.flipX = false;
-        }
+                // Player rotation
+                if(_rb.velocity.x < 0)
+                {
+                    spriteRR.flipX = true;
+                } 
+                else if(_rb.velocity.x > 0)
+                {
+                   spriteRR.flipX = false;
+                }
 
-        if(isGrounded){
-            doubleJump = true;
-        }
+                if(isGrounded)
+                {
+                    doubleJump = true;
+                }
         
-        if (Input.GetButtonDown("Jump")) {
+                if (Input.GetButtonDown("Jump")) 
+                {
             
-            if (isGrounded){
+                    if (isGrounded)
+                    {
 
-            _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+                    _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
             
-            }
+                    }
             
-            else{
+                else
+                {
 
-                if(doubleJump){
-                
-                _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+                    if(doubleJump)
+                    {
+                        _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
 
-                doubleJump = false;
+                        doubleJump = false;
 
+                    }
                 }
             }
         }
-
-        anim.SetBool("isGrounded", isGrounded);
-        anim.SetFloat("moveSpeed", Mathf.Abs(_rb.velocity.x));
-        anim.SetBool("isFalling", isFalling);
-        // anim.SetBool("doubleJump", doubleJump);
-
+            else
+            {
+                knockBackCount -= Time.deltaTime;
+            }
+            anim.SetBool("isGrounded", isGrounded);
+            anim.SetFloat("moveSpeed", Mathf.Abs(_rb.velocity.x));
+            anim.SetBool("isFalling", isFalling);
+           // anim.SetBool("doubleJump", doubleJump);      
+    }
+    
+    public void KnockBack() 
+    {
+      knockBackCount = knockBackDuration;  
     }
 }
+
+
+
+
